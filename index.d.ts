@@ -1,4 +1,4 @@
-/**
+/*
 * @license Apache-2.0
 *
 * Copyright (c) 2026 The Stdlib Authors.
@@ -16,20 +16,11 @@
 * limitations under the License.
 */
 
-'use strict';
+// TypeScript Version: 4.1
 
-// MODULES //
+/// <reference types="https://cdn.jsdelivr.net/gh/stdlib-js/types@esm/index.d.ts"/>
 
-var numelDimension = require( '@stdlib/ndarray-base-numel-dimension' );
-var clipIndex = require( '@stdlib/ndarray-base-clip-index' );
-var getStride = require( '@stdlib/ndarray-base-stride' );
-var getOffset = require( '@stdlib/ndarray-base-offset' );
-var getData = require( '@stdlib/ndarray-base-data-buffer' );
-var ndarraylike2scalar = require( '@stdlib/ndarray-base-ndarraylike2scalar' );
-var strided = require( '@stdlib/blas-ext-base-dfill-nan' ).ndarray;
-
-
-// MAIN //
+import { float64ndarray, typedndarray } from '@stdlib/types/ndarray';
 
 /**
 * Replaces elements in a one-dimensional double-precision floating-point ndarray equal to `NaN` with a specified scalar constant.
@@ -43,8 +34,8 @@ var strided = require( '@stdlib/blas-ext-base-dfill-nan' ).ndarray;
 *     -   a zero-dimensional ndarray containing the starting index (inclusive).
 *     -   a zero-dimensional ndarray containing the ending index (exclusive).
 *
-* @param {ArrayLikeObject<Object>} arrays - array-like object containing ndarrays
-* @returns {ndarray} input ndarray
+* @param arrays - array-like object containing ndarrays
+* @returns input ndarray
 *
 * @example
 * var Float64Vector = require( '@stdlib/ndarray-vector-float64' );
@@ -67,32 +58,9 @@ var strided = require( '@stdlib/blas-ext-base-dfill-nan' ).ndarray;
 * var out = dfillNaN( [ x, alpha, start, end ] );
 * // returns <ndarray>[ 0.0, -2.0, 3.0, NaN, 4.0, -6.0 ]
 */
-function dfillNaN( arrays ) {
-	var stride;
-	var offset;
-	var alpha;
-	var start;
-	var end;
-	var N;
-	var x;
-
-	x = arrays[ 0 ];
-	alpha = ndarraylike2scalar( arrays[ 1 ] );
-
-	N = numelDimension( x, 0 );
-	start = clipIndex( ndarraylike2scalar( arrays[ 2 ] ), N );
-	end = clipIndex( ndarraylike2scalar( arrays[ 3 ] ), N );
-	if ( start >= end ) {
-		return x;
-	}
-	stride = getStride( x, 0 );
-	offset = getOffset( x ) + ( stride*start );
-
-	strided( end-start, alpha, getData( x ), stride, offset );
-	return x;
-}
+declare function dfillNaN( arrays: [ float64ndarray, typedndarray<number>, typedndarray<number>, typedndarray<number> ] ): float64ndarray;
 
 
 // EXPORTS //
 
-module.exports = dfillNaN;
+export = dfillNaN;
